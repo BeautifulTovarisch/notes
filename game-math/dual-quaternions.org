@@ -34,9 +34,9 @@ Dual numbers consist of a real and complex part.
 
 ** Definition
 
- \begin{equation}
+ \begin{equation*}
  z = r + d\epsilon
- \end{equation}
+ \end{equation*}
  where:
  \begin{flalign*}
  r &= \textrm{ real component }&&\\
@@ -51,41 +51,110 @@ Dual numbers consist of a real and complex part.
 
 ** Addition
 
-\begin{equation}
+\begin{equation*}
 (r_{A} + d_{A}\epsilon) + (r_{B} + d_{B}\epsilon) = (r_{A} + r_{B}) + (d_{A} + d_{B})\epsilon
-\end{equation}
+\end{equation*}
 
-** Multiplication
+ ** Multiplication
 
-\begin{equation}
-(r_{A} + d_{A}\epsilon)(r_{B} + d_{B}\epsilon) = r_{A}r_{B} + (r_{B}d_{B} + r_{B}d_{A})\epsilon
-\end{equation}
+ \begin{equation*}
+ (r_{A} + d_{A}\epsilon)(r_{B} + d_{B}\epsilon) = r_{A}r_{B} + (r_{B}d_{B} + r_{B}d_{A})\epsilon
+ \end{equation*}
 
-** Division
+ ** Division
 
-\begin{equation}
-\frac{(r_{A} + d_{A}\epsilon)}{(r_{B} + d_{B}\epsilon)} = \frac {r_{A}r_{B}}{r^2_{B}} + \frac{r_{B}d_{A} - r_{A}d_{B}}{r^2_{B}}
-\end{equation}
+ \begin{equation*}
+ \frac{(r_{A} + d_{A}\epsilon)}{(r_{B} + d_{B}\epsilon)} = \frac {r_{A}r_{B}}{r^2_{B}} + \frac{r_{B}d_{A} - r_{A}d_{B}}{r^2_{B}}
+ \end{equation*}
 
-** TODO Differentiation
+ ** TODO Differentiation
 
 * Quaternions
 
-Quaternions extend the complex number system with quaternion units ~i~, ~j~, and ~k~. They alleviate many of the issues of using Euler angles, axis-angles, and matrices to
-perform rotations in computer graphics.
+ Quaternions extend the complex number system with quaternion units ~i~, ~j~, and ~k~. They alleviate many of the issues of using Euler angles, axis-angles, and matrices to
+ perform rotations in computer graphics. Often a quaternion is denoted by a scalar ~w~ and vector ~v~ components: ~(w, v)~.
 
 ** Definition
 
-\begin{equation}
-q = w + xi +yj + zk
-\end{equation}
-where:
-\begin{flalign*}
-i^2 = j^2 = k^2 = -1&&
-\end{flalign*}
-and:
-\begin{flalign*}
-ij &= k,\ ji = -k&&\\
-jk &= i,\ kj = -i&&\\
-ki &= j,\ ik = -j&&
-\end{flalign*}
+ \begin{equation*}
+ q = w + xi +yj + zk
+ \end{equation*}
+ where:
+ \begin{flalign*}
+ i^2 = j^2 = k^2 = -1&&
+ \end{flalign*}
+ and:
+ \begin{flalign*}
+ ij &= k,\ ji = -k&&\\
+ jk &= i,\ kj = -i&&\\
+ ki &= j,\ ik = -j&&
+ \end{flalign*}
+
+*** Example Implementation
+
+Quaternion data structure
+
+#+BEGIN_SRC C
+typedef struct Quaternion {
+  float x;
+  float y;
+  float z;
+  float w;
+} Quaternion;
+
+#+END_SRC
+
+** Scaling
+\begin{equation*}
+sq = (sw, sv)
+\begin{equation*}
+
+** Addition
+
+\begin{equation*}
+q_{1} + q_{2} = (w_{1} + w_{2}, v_{1} + v_{2})
+\end{equation*}
+
+** Multiplication
+
+\begin{equation*}
+q_{1}q_{2} = (w_{1}w_{2} - v_{1}v_{2}, w_{1}v_{2} + w_{2}v_{1} + (v_{1} \times v_{2}))
+\end{equation*}
+
+** Conjugate
+
+\begin{equation*}
+q' = (w, -v)
+\end{equation*}
+
+** Magnitude
+
+\begin{equation*}
+||q|| = qq'
+\end{equation*}
+
+** Axis Angle
+   For unit quaternion $||q|| = 1$, axis angle rotation can be represented as
+
+\begin{equation*}
+q = (cos(\frac{\theta}{2}), nsin(\frac{\theta}{2}))
+\end{equation*}
+
+*** Example Implementation
+
+    Axis-angle to quaternion conversion
+
+#+BEGIN_SRC C
+Quaternion AxisAngle_To_Quaterion(Quaternion v, float angle) {
+  return (Quaternion) {
+    .x = v.x * sin(angle * 0.5f),
+    .y = v.y * sin(angle * 0.5f),
+    .z = v.z * sin(angle * 0.5f),
+    .w = cos(angle * 0.5f)
+  };
+}
+#+END_SRC
+
+** TODO Quaternion Interpolation
+
+* Dual Quaternions
