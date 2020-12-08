@@ -7,7 +7,8 @@
 * Description
 
   Document containing notes on mathematical concepts pertaining to dual quaternions for game development.
-Equations formatted via [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragments]]. Code snippets provided in C where applicable.
+Equations formatted via [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragments]]. Code snippets provided in C where applicable. Notes derived from
+studying [[https://cs.gmu.edu/~jmlien/teaching/cs451/uploads/Main/dual-quaternion.pdf][a write-up]] by Ben Kenwright at Newcastle University
 
 * Introduction
 
@@ -29,13 +30,64 @@ and matrix transformations.
 
 * Dual Numbers
 
-Duals numbers consist of a real and complex part.
+Dual numbers consist of a real and complex part.
+
+** Definition
+
+ \begin{equation}
+ z = r + d\epsilon
+ \end{equation}
+ where:
+ \begin{tabbing}
+ \phantom{$D_{n25}\ $}\= \kill
+ $r$\> = real component\\
+ $d$\> = dual part\\
+ $\epsilon$\> = dual operator
+ \end{tabbing}
+ and:
+ \begin{tabbing}
+ \phantom{$D_{n25}\ $}\= \kill
+ $\epsilon^2$\> = 0\\
+ $\epsilon$\> \neq 0
+ \end{tabbing}
+
+** Addition
 
 \begin{equation}
-z = r + d\epsilon
+(r_{A} + d_{A}\epsilon) + (r_{B} + d_{B}\epsilon) = (r_{A} + r_{B}) + (d_{A} + d_{B})\epsilon
+\end{equation}
+
+** Multiplication
+
+\begin{equation}
+(r_{A} + d_{A}\epsilon)(r_{B} + d_{B}\epsilon) = r_{A}r_{B} + (r_{B}d_{B} + r_{B}d_{A})\epsilon
+\end{equation}
+
+** Division
+
+\begin{equation}
+\frac{(r_{A} + d_{A}\epsilon)}{(r_{B} + d_{B}\epsilon)} = \frac {r_{A}r_{B}}{r^2_{B}} + \frac{r_{B}d_{A} - r_{A}d_{B}}{r^2_{B}}
+\end{equation}
+
+** TODO Differentiation
+
+* Quaternions
+
+Quaternions extend the complex number system with quaternion units ~i~, ~j~, and ~k~. They alleviate many of the issues of using Euler angles, axis-angles, and matrices to
+perform rotations in computer graphics.
+
+** Definition
+
+\begin{equation}
+q = w + xi +yj + zk
 \end{equation}
 where:
-\begin{tabbing}
-\epsilon^2 = 0\\
-\epsilon \neq 0
-\end{tabbing}
+\begin{flalign*}
+i^2 = j^2 = k^2 = -1&&
+\end{flalign*}
+and:
+\begin{flalign*}
+ij &= k,\ ji = -k&&\\
+jk &= i,\ kj = -i&&\\
+ki &= j,\ ik = -j&&
+\end{flalign*}
