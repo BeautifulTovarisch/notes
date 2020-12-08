@@ -1,2 +1,0 @@
-#+latex_header: \hypersetup{colorlinks=true,linkcolor=blue}
-#+title: Game Maths

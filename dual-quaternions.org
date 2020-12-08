@@ -1,0 +1,41 @@
+#+latex_header: \hypersetup{colorlinks=true,linkcolor=blue}
+#+title: Dual Quaternions
+#+author: Anthony Re
+#+date: 2020-12-07
+#+OPTIONS: tex:t
+
+* Description
+
+  Document containing notes on mathematical concepts pertaining to dual quaternions for game development.
+Equations formatted via [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragments]]. Code snippets provided in C where applicable.
+
+* Introduction
+
+  Quaternions and by extenion dual-quaternions are tools for expressing tranformations of rigid-bodies.
+  Quaternions expand upon the complex number system, adding two additional complex components ~j~ and ~k~.
+  Dual-Quaternions are combination of [[https://en.wikipedia.org/wiki/Dual_number][Dual Numbers]] and quaternions, allowing for translation and rotation
+  to be performed.
+
+** Advantages
+
+Quaternions and Dual-Quaternions boast several advantages over more traditional Euler angles, axis angles,
+and matrix transformations.
+
+- Singularity Free (avoids Gimbal lock)
+- Explicit
+- Shortest-path interpolation
+- Efficient and Compact
+- Both translation and rotation expressed (with dual-quaternions)
+
+* Dual Numbers
+
+Duals numbers consist of a real and complex part.
+
+\begin{equation}
+z = r + d\epsilon
+\end{equation}
+where:
+\begin{tabbing}
+\epsilon^2 = 0\\
+\epsilon \neq 0
+\end{tabbing}
