@@ -38,18 +38,16 @@ Dual numbers consist of a real and complex part.
  z = r + d\epsilon
  \end{equation}
  where:
- \begin{tabbing}
- \phantom{$D_{n25}\ $}\= \kill
- $r$\> = real component\\
- $d$\> = dual part\\
- $\epsilon$\> = dual operator
- \end{tabbing}
+ \begin{flalign*}
+ r &= \textrm{ real component }&&\\
+ d &= \textrm{ dual part }&&\\
+ \epsilon &= \textrm{ dual operator }
+ \end{flalign*}
  and:
- \begin{tabbing}
- \phantom{$D_{n25}\ $}\= \kill
- $\epsilon^2$\> = 0\\
- $\epsilon$\> \neq 0
- \end{tabbing}
+ \begin{flalign*}
+ &\epsilon^2 &= 0&&\\
+ &\epsilon &\neq 0
+ \end{flalign*}
 
 ** Addition
 
