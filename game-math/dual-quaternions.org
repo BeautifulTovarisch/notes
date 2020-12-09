@@ -1,12 +1,11 @@
 #+latex_header: \hypersetup{colorlinks=true,linkcolor=blue}
+#+OPTIONS: tex:t
 #+title: Dual Quaternions
 #+author: Anthony Re
-#+date: 2020-12-07
-#+OPTIONS: tex:t
 
 * Description
 
-  Document containing notes on mathematical concepts pertaining to dual quaternions for game development.
+  Document containing notes on mathematical concepts pertaining to use of dual quaternions for game development.
 Equations formatted via [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragments]]. Code snippets provided in C where applicable. Notes derived from
 studying [[https://cs.gmu.edu/~jmlien/teaching/cs451/uploads/Main/dual-quaternion.pdf][a write-up]] by Ben Kenwright at Newcastle University
 
@@ -45,8 +44,8 @@ Dual numbers consist of a real and complex part.
  \end{flalign*}
  and:
  \begin{flalign*}
- &\epsilon^2 &= 0&&\\
- &\epsilon &\neq 0
+ &\epsilon \neq 0&&\\
+ &\epsilon^2 = 0&&
  \end{flalign*}
 
 ** Addition
@@ -105,9 +104,10 @@ typedef struct Quaternion {
 #+END_SRC
 
 ** Scaling
+
 \begin{equation*}
 sq = (sw, sv)
-\begin{equation*}
+\end{equation*}
 
 ** Addition
 
@@ -118,8 +118,10 @@ q_{1} + q_{2} = (w_{1} + w_{2}, v_{1} + v_{2})
 ** Multiplication
 
 \begin{equation*}
-q_{1}q_{2} = (w_{1}w_{2} - v_{1}v_{2}, w_{1}v_{2} + w_{2}v_{1} + (v_{1} \times v_{2}))
+q_{1}q_{2} = (w_{1}w_{2} - v_{1} \cdot v_{2}, w_{1}v_{2} + w_{2}v_{1} + (v_{1} \times v_{2}))
 \end{equation*}
+
+where \cdot is ~dot product~ and \times is the ~cross product~
 
 ** Conjugate
 
@@ -134,10 +136,11 @@ q' = (w, -v)
 \end{equation*}
 
 ** Axis Angle
+
    For unit quaternion $||q|| = 1$, axis angle rotation can be represented as
 
 \begin{equation*}
-q = (cos(\frac{\theta}{2}), nsin(\frac{\theta}{2}))
+q = (cos(\frac{\theta}{2}), n*sin(\frac{\theta}{2}))
 \end{equation*}
 
 *** Example Implementation
@@ -224,7 +227,7 @@ where r and t represent the unit quaterions describing roation and translation, 
     Pure rotations are represented by zeroing out the *dual* quaternion:
 
 \begin{equation*}
-q = [cos(\frac{\theta}{2}), xsin(\frac{\theta}{2}), ysin(\frac{\theta}{2}), zsin(\frac{\theta}{2})][0, 0, 0, 0]
+q = [cos(\frac{\theta}{2}), x*sin(\frac{\theta}{2}), y*sin(\frac{\theta}{2}), z*sin(\frac{\theta}{2})][0, 0, 0, 0]
 \end{equation*}
 
 *** Pure Translation
@@ -236,3 +239,24 @@ q = [1, 0, 0, 0][0, \frac{x}{2}, \frac{y}{2}, \frac{z}{2}]
 \end{equation*}
 
 where ~x~, ~y~, and ~z~ are components of quaternion ~t~
+
+*** Combining Operations
+
+    Quaternion transforms can be combined *non-commutatively* by the following:
+
+\begin{equation*}
+q = q_{t} \times q_{r}
+\end{equation*}
+
+Note that operations are applied from *right* to *left*, as with matrices.
+
+*** Transforming a Point
+
+    A unit dual-quaternion applies a transformation to a point via the following:
+
+\begin{equation*}
+p' = qpq'
+\end{equation*}
+
+where ~q~ represents a unit quaternion whose conjugate is ~q'~ and ~p~ and ~p'~ represent
+an initial point and its resulting transform, respectively.
