@@ -292,3 +292,14 @@ p' = qpq'
 
 where ~q~ represents a unit quaternion whose conjugate is ~q'~ and ~p~ and ~p'~ represent
 an initial point and its resulting transform, respectively.
+
+**** Example Transformation Function
+
+     While ordinarily a transformation is given by $p' = qpq'$ by ordinary quaternion multiplication
+     (with $p_{w} = 0$), a more efficient approach can be realized using the cross product:
+
+\begin{equation*}
+  p + q_{w} * 2(q \times p) * (q \times (q \times p))
+\end{equation*}
+
+where: $p$ is the vector target of the transform and $q$ is the product of dual-quaternions.
