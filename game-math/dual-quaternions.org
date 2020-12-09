@@ -7,7 +7,7 @@
 
   Document containing notes on mathematical concepts pertaining to use of dual quaternions for game development.
 Equations formatted via [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragments]]. Code snippets provided in C where applicable. Notes derived from
-studying [[https://cs.gmu.edu/~jmlien/teaching/cs451/uploads/Main/dual-quaternion.pdf][a write-up]] by Ben Kenwright at Newcastle University
+studying [[https://cs.gmu.edu/~jmlien/teaching/cs451/uploads/Main/dual-quaternion.pdf][a write-up]] by Ben Kenwright at Newcastle University.
 
 * Introduction
 
