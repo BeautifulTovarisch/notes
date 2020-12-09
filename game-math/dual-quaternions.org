@@ -55,19 +55,19 @@ Dual numbers consist of a real and complex part.
 (r_{A} + d_{A}\epsilon) + (r_{B} + d_{B}\epsilon) = (r_{A} + r_{B}) + (d_{A} + d_{B})\epsilon
 \end{equation*}
 
- ** Multiplication
+** Multiplication
 
  \begin{equation*}
  (r_{A} + d_{A}\epsilon)(r_{B} + d_{B}\epsilon) = r_{A}r_{B} + (r_{B}d_{B} + r_{B}d_{A})\epsilon
  \end{equation*}
 
- ** Division
+** Division
 
  \begin{equation*}
  \frac{(r_{A} + d_{A}\epsilon)}{(r_{B} + d_{B}\epsilon)} = \frac {r_{A}r_{B}}{r^2_{B}} + \frac{r_{B}d_{A} - r_{A}d_{B}}{r^2_{B}}
  \end{equation*}
 
- ** TODO Differentiation
+** TODO Differentiation
 
 * Quaternions
 
@@ -158,3 +158,81 @@ Quaternion AxisAngle_To_Quaterion(Quaternion v, float angle) {
 ** TODO Quaternion Interpolation
 
 * Dual Quaternions
+
+  Quaterions combined with Dual Number theory allowing for compact representation of rotation /and/ translation.
+  Consists of two quaternions for a total of eight elements.
+
+** Definition
+
+\begin{equation*}
+q = q_{r} + q_{d}\epsilon
+\end{equation*}
+
+** Scaling
+
+\begin{equation*}
+sq = sq_{r} + sq_{d}\epsilon
+\end{equation*}
+
+** Addition
+
+\begin{equation*}
+q_{1} + q_{2} = q_{r1} + q_{r2} + (q_{d1} + q_{d2})\epsilon
+\end{equation*}
+
+** Multiplication
+
+\begin{equation*}
+q_{1} + q_{2} = q_{r1}q_{r2} + (q_{r1}q_{d2} + q_{d1}q_{r2})\epsilon
+\end{equation*}
+
+** Conjugate
+
+\begin{equation*}
+q' = q'_{r} + q'_{d}\epsilon
+\end{equation*}
+
+** Magnitude
+
+\begin{equation*}
+||q|| = qq'
+\end{equation*}
+
+** Unit
+
+\begin{equation*}
+||q|| = 1
+\end{equation*}
+given:
+\begin{flalign*}
+q'_{r}q_{d} + q'_{d}q_{r} = 0&&
+\end{flalign*}
+
+** Rotation and Translation
+
+   The rigid rotational and translational representations (for unit dual-quaternion) are given by:
+
+\begin{flalign*}
+q_{r} &= r\\
+q_{d} &= \frac{1}{2}tr
+\end{flalign*}
+
+where r and t represent the unit quaterions describing roation and translation, respectively.
+
+*** Pure Rotation
+
+    Pure rotations are represented by zeroing out the *dual* quaternion:
+
+\begin{equation*}
+q = [cos(\frac{\theta}{2}), xsin(\frac{\theta}{2}), ysin(\frac{\theta}{2}), zsin(\frac{\theta}{2})][0, 0, 0, 0]
+\end{equation*}
+
+*** Pure Translation
+
+    Conversely, Setting the *real* quaternion to the identity forms a pure translation:
+
+\begin{equation*}
+q = [1, 0, 0, 0][0, \frac{x}{2}, \frac{y}{2}, \frac{z}{2}]
+\end{equation*}
+
+where ~x~, ~y~, and ~z~ are components of quaternion ~t~
